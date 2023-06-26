@@ -11,21 +11,48 @@
 int main(int ac, char *av[], char *env[])
 {
 	char **store = NULL;
-	int i = 0;
-
-	printf("$ ");
-	store= _getinput();
-	while(store[i] != NULL)
+	int i = 0, forkRV, status;
+	while(9)
 	{
-		printf("%s\n", store[i]);
-		i++;
-	}
-	
+		i = 0;
+		printf("$ ");
+		store = _getinput();
+		if (store == NULL)
+		{
+			return (-1);
+		}
+		forkRV = fork();
+		if (forkRV == -1)
+		{
+			perror("Error: ");
+			return (1);
+		}
+		if (forkRV == 0)
+		{
+			 if (execve(store[0], store, env) == -1)
+			 {
+				 perror("Error: ");
+				 return (1);
+			 }
+		}
+		else
+		{
+			wait(&status);
+			printf("Parent\n");
+		}
+		
+		while(store[i] != NULL)
+		{
+			printf("%s\n", store[i]);
+			i++;
+		}
+		
+
 	for (i = 0; store[i] != NULL; i++) /* Freeing the array of strings */
 	{
 		free(store[i]);
 	}
 		free(store);
-
+	}
 	return (0);
 }
