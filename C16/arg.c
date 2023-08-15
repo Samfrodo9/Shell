@@ -1,5 +1,9 @@
 #include <stdio.h>
 
+/**
+ * A session to demostrate ARGC, ARGV
+ */
+
 int main(int argc, char **argv)
 {
 	printf("ARGC is %d\n", argc);

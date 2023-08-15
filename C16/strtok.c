@@ -1,6 +1,11 @@
 #include <stdio.h>
 #include <string.h>
 
+/**
+ * A session to demostrate using STRTOK function
+ */
+
+
 int main(void)
 {
 	char text[100] = "This is a simple shell series";

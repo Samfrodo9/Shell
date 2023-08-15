@@ -2,6 +2,9 @@
 #include <sys/types.h>
 #include <unistd.h>
 
+/**
+ * A program to demostrate how to create processes
+ */
 
 int main(void)
 {
