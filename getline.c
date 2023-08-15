@@ -1,49 +1,32 @@
-#include "shell.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-/**
- * _getinput - A function that gets input from STDIN
- *
- */
-char **_getinput(void)
+int main(void)
 {
-	size_t size;
-	char *token = NULL, *buffer = NULL, *copy = NULL;
-	const char *delimeter = " \n";
-	int argc = 0, i;
-	char **argv = NULL;
+	char *store = NULL;
+	ssize_t size = 0;
+	ssize_t getRV;
+	char *temp;
 
-		if (getline(&buffer, &size, STDIN) == -1)
-		{
-			free(buffer);
-			return NULL;
-		}
+	getRV = getline(&store, &size, stdin);
 
-		copy = strdup(buffer);
-		token = strtok(buffer, delimeter);
-		while(token)
-		{
-			token = strtok(NULL, delimeter);
-			argc++;
-		}
-		argv = malloc(sizeof(char *) * (argc + 1));
-		if (argv == NULL)
-		{
-			  perror("Memory allocation failed\n");
-			  free(buffer);
-			  return NULL;
-		}
+	if (getRV == -1)
+	{
+		free(store);
+		exit(0);
+	}
+	
+	printf("Before tokenizing \n");
+	printf("You entered %s", store);
 
-		i = 0;
-		token = strtok(copy, delimeter);
-		while(token)
-		{
-			argv[i] = strdup(token);
-			token = strtok(NULL, delimeter);
-			i++;
-		}
-		argv[i] = NULL;
+	printf("After tokenizing\n");
 
-	free(buffer);
-	free(copy);
-	return (argv);
+	temp = strtok(store, "\n");
+
+	printf("You entered %s", temp); 
+
+	free(store);
+
+	return (0);
 }
